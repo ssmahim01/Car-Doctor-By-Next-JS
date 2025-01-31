@@ -1,10 +1,10 @@
 import { FaArrowRight } from "react-icons/fa";
-import mongoDB from "@/lib/mongoDB";
+import mongoDB, { collectionNames } from "@/lib/mongoDB";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function ServicesArea() {
-    const servicesData = mongoDB("services");
+    const servicesData = mongoDB(collectionNames.serviceCollection);
     const services = await servicesData.find({}).toArray();
 
   return (
@@ -19,7 +19,7 @@ export default async function ServicesArea() {
                     <p className="text-xl text-[#FF3811] font-bold">Price: ${service?.price}</p>
                     </div>
 
-                    <Link href={"/"} className="text-[#FF3811] font-semibold">
+                    <Link href={`/service/${service?._id}`} className="text-[#FF3811] font-semibold">
                     <FaArrowRight className="text-xl" />
                     </Link>
                 </div>

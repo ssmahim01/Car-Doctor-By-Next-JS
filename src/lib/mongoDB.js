@@ -1,4 +1,7 @@
 import { MongoClient, ServerApiVersion } from 'mongodb';
+export const collectionNames = {
+    serviceCollection: "services"
+}
 
 export default function mongoDB(collection_name) {
     const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.ybs8l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
