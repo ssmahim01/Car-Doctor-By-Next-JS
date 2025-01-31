@@ -1,9 +1,20 @@
 "use client"
 import Link from "next/link";
+import { registerUser } from "../actions/auth/registerUser";
 
 export default function RegisterForm() {
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+
+       await registerUser({name, email, password});
+    };
+
       return (
-        <form className="w-full max-w-lg space-y-8">
+        <form onSubmit={handleRegister} className="w-full max-w-lg space-y-8">
           <label className="form-control w-full">
             <div className="label w-full">
               <span className="label-text  font-bold">Name</span>
@@ -38,7 +49,7 @@ export default function RegisterForm() {
             />
           </label>
           <button className="w-full h-12 bg-orange-500 text-white font-bold">
-            Sign Up
+            Register
           </button>
           <p className="text-center">Or Sign In with</p>
           <p className="text-center">
