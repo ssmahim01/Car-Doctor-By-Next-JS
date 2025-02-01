@@ -1,12 +1,10 @@
-import mongoDB, { collectionNames } from "@/lib/mongoDB";
-import { ObjectId } from "mongodb";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function ServiceDetails({params}) {
     const {id} = await params;
-    const servicesCollection = mongoDB(collectionNames.serviceCollection);
-    const query = {_id: new ObjectId(id)};
-    const service = await servicesCollection.findOne(query);
+   const response = await fetch(`http://localhost:3000/api/service/${id}`);
+   const service = await response.json();
 
   return (
     <div className="w-11/12 mx-auto py-10">
@@ -35,7 +33,8 @@ export default async function ServiceDetails({params}) {
                 <Image 
                 src={service?.img}
                 alt={service?.title}
-                className="w-full h-[500px] rounded-md object-cover"
+                className="w-full lg:h-[500px] h-96 rounded-md object-cover"
+                referrerPolicy="no-referrer"
                 width={800}
                 height={500}
                 />
@@ -47,9 +46,14 @@ export default async function ServiceDetails({params}) {
             </div>
             </div>
 
-            <div className="flex flex-col lg:col-span-2 md:col-span-5">
-                <p className="text-gray-800 lg:text-2xl md:text-xl font-bold mb-4">Price: ${service?.price}</p>
-                <button className="w-full btn bg-[#FF3811] text-lg text-white font-bold rounded-md">Proceed Checkout</button>
+            <div className="flex flex-col lg:col-span-2 md:col-span-5 md:my-0 my-4">
+                <p className="text-gray-800 lg:text-2xl md:text-xl font-bold md:mb-4 mb-2">Price: ${service?.price}</p>
+
+                <Link href={`/checkout/${service?._id}`}>
+                <button className="w-full btn bg-[#FF3811] text-lg text-white font-bold rounded-md">
+                    Proceed Checkout
+                </button>
+                </Link>
             </div>
         </section>
     </div>
