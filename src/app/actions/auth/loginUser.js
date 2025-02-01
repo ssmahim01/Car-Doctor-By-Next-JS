@@ -7,8 +7,8 @@ export const loginUser = async (payload) => {
     const userCollection = mongoDB(collectionNames.userCollection);
     const user = await userCollection.findOne({ email });
 
-    if (!user) return { success: false };
+    if (!user) return null;
     const isPasswordOk = bcrypt.compare(user.password, password);
-    if (!isPasswordOk) return { success: false };
+    if (!isPasswordOk) return null;
     return user;
 }

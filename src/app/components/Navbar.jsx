@@ -1,10 +1,18 @@
+"use client";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { FaSignOutAlt } from "react-icons/fa";
 
 export default function Navbar() {
-  const appointment = <>
-  <button className="btn btn-outline border border-[#FF3811] text-[#FF3811] hover:bg-[#FF3811] hover:text-white hover:border-none text-base w-full font-bold rounded-md">Appointment</button>
-  </>
+  const {data: session, status} = useSession();
+  const appointment = (
+    <>
+      <button className="btn btn-outline border border-[#FF3811] text-[#FF3811] hover:bg-[#FF3811] hover:text-white hover:border-none text-base w-full font-bold rounded-md">
+        Appointment
+      </button>
+    </>
+  );
 
   const menu = (
     <>
@@ -64,14 +72,30 @@ export default function Navbar() {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal text-base px-1 *:text-gray-600 *:font-bold">
-         {menu}
+          {menu}
         </ul>
       </div>
       <div className="navbar-end">
-       <div className="flex gap-3 items-center mr-4">
-       <Link href="/login"><button className="btn bg-teal-500 border-none text-white text-base btn-md px-4 font-bold rounded-md">Login</button></Link>
-       <Link href="/register"><button className="btn text-white bg-violet-500 border-none text-base btn-md px-5 font-bold rounded-md">Register</button></Link>
-       </div>
+        {status !== 'authenticated' ? (
+          <div className="flex gap-3 items-center mr-4">
+          <Link href="/login">
+            <button className="btn bg-teal-500 border-none text-white text-base btn-md px-4 font-bold rounded-md">
+              Login
+            </button>
+          </Link>
+          <Link href="/register">
+            <button className="btn text-white bg-violet-500 border-none text-base btn-md px-5 font-bold rounded-md">
+              Register
+            </button>
+          </Link>
+        </div>
+        ) : (
+          <>
+          <button onClick={() => signOut()} className="btn text-white bg-rose-500 border-none btn-md px-5 font-bold flex gap-2 mr-4 items-center rounded-md">
+              <FaSignOutAlt className="text-xl" /> <span className="text-base">Log Out</span>
+            </button>
+          </>
+        )}
 
         <div className="md:block hidden">{appointment}</div>
       </div>

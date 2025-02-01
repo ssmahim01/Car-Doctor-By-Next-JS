@@ -1,8 +1,11 @@
 "use client";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function LoginForm() {
+  const router = useRouter();
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -11,10 +14,25 @@ export default function LoginForm() {
     const password = form.password.value;
 
     try {
-      await signIn("credentials", { email, password, callbackUrl: "/" });
+      const response = await signIn("credentials", {
+        email,
+        password,
+        callbackUrl: "/",
+        redirect: false,
+      });
+
+      if (response.ok) {
+        toast.success("Successfully logged in", {
+          position: "top-center"
+        });
+        router.push("/");
+        form.reset();
+      }else{
+        toast.error("Failed to login");
+      }
     } catch (error) {
       console.log(error);
-      alert(error.message)
+      toast.error("Failed to login");
       return null;
     }
   };
