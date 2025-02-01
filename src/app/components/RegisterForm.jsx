@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link";
 import { registerUser } from "../actions/auth/registerUser";
+import SocialLogin from "./SocialLogin";
 
 export default function RegisterForm() {
     const handleRegister = async (e) => {
@@ -51,7 +52,8 @@ export default function RegisterForm() {
           <button className="w-full h-12 bg-orange-500 text-white font-bold">
             Register
           </button>
-          <p className="text-center">Or Sign In with</p>
+          <p className="text-center">Or Log In with</p>
+          <SocialLogin />
           <p className="text-center">
             Don't Have an account?{" "}
             <Link href="/login" className="text-orange-500 font-bold">

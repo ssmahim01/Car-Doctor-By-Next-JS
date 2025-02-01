@@ -6,6 +6,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 
 export default function Navbar() {
   const {data: session, status} = useSession();
+  console.log(session);
   const appointment = (
     <>
       <button className="btn btn-outline border border-[#FF3811] text-[#FF3811] hover:bg-[#FF3811] hover:text-white hover:border-none text-base w-full font-bold rounded-md">
@@ -91,6 +92,7 @@ export default function Navbar() {
         </div>
         ) : (
           <>
+          <Image className="rounded-full border-4 border-purple-500 mr-3" src={session?.user?.image} alt="Profile Image" width={50} height={50} />
           <button onClick={() => signOut()} className="btn text-white bg-rose-500 border-none btn-md px-5 font-bold flex gap-2 mr-4 items-center rounded-md">
               <FaSignOutAlt className="text-xl" /> <span className="text-base">Log Out</span>
             </button>
