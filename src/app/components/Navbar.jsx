@@ -2,6 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
+  const appointment = <>
+  <button className="btn btn-outline border border-[#FF3811] text-[#FF3811] hover:bg-[#FF3811] hover:text-white hover:border-none text-base w-full font-bold rounded-md">Appointment</button>
+  </>
+
   const menu = (
     <>
       <li>
@@ -43,9 +47,10 @@ export default function Navbar() {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 text-base shadow *:text-gray-600 *:font-bold"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-4 text-base shadow *:text-gray-600 *:font-bold"
           >
             {menu}
+            <div className="md:hidden block mt-3 w-full">{appointment}</div>
           </ul>
         </div>
         <Link href={"/"}>
@@ -63,7 +68,12 @@ export default function Navbar() {
         </ul>
       </div>
       <div className="navbar-end">
-        <button className="btn btn-outline border border-[#FF3811] text-[#FF3811] hover:bg-[#FF3811] hover:text-white hover:border-none text-base px-5 font-bold rounded-md">Appointment</button>
+       <div className="flex gap-3 items-center mr-4">
+       <Link href="/login"><button className="btn bg-teal-500 border-none text-white text-base btn-md px-4 font-bold rounded-md">Login</button></Link>
+       <Link href="/register"><button className="btn text-white bg-violet-500 border-none text-base btn-md px-5 font-bold rounded-md">Register</button></Link>
+       </div>
+
+        <div className="md:block hidden">{appointment}</div>
       </div>
     </div>
   );
