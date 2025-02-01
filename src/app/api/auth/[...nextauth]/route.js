@@ -3,6 +3,7 @@ import { loginUser } from "@/app/actions/auth/loginUser"
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
+import mongoDB, { collectionNames } from "@/lib/mongoDB";
 
 export const authOptions = {
   providers: [
@@ -44,6 +45,22 @@ export const authOptions = {
   ],
   pages: {
     signIn: "/login"
+  },
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+
+      if(account){
+        const {providerAccountId, provider} = account;
+        const {email: user_email, image, name} = user;
+        const userCollection = mongoDB(collectionNames.userCollection);
+        const isExistedUser = await userCollection.findOne({providerAccountId});
+        if(!isExistedUser){
+          const payload = {providerAccountId, provider, name, email: user_email, image};
+          await userCollection.insertOne(payload);
+        }
+      }
+      return true
+    },
   }
 }
 

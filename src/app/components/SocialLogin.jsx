@@ -1,24 +1,27 @@
 "use client";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 export default function SocialLogin() {
   const router = useRouter();
-  const handleSocialLogin = async (socialName) => {
-    // console.log(socialName);
+  const session = useSession();
 
-    const loginResult = await signIn(socialName, { redirect: false });
-    if (loginResult.ok) {
+  const handleSocialLogin = (socialName) => {
+    // console.log(socialName);
+    signIn(socialName);
+  };
+
+  useEffect(() => {
+    if (session?.status === "authenticated") {
       router.push("/");
-      toast.success(`Login Successful by ${socialName}`, {
+      toast.success("Login successful", {
         position: "top-center",
       });
-    } else {
-      toast.error("Login failed!");
     }
-  };
+  }, [session?.status]);
 
   return (
     <div className="flex justify-center gap-8">
