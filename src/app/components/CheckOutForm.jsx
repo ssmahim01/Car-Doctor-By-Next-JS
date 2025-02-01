@@ -7,7 +7,7 @@ export default function CheckOutForm({ service }) {
   const handleBookService = async (e) => {
     e.preventDefault();
     toast("Submitting Booking...", {
-        position: "top-center"
+      position: "top-center",
     });
 
     const form = e.target;
@@ -29,14 +29,19 @@ export default function CheckOutForm({ service }) {
       service_price: service.price,
     };
 
-    const res = await fetch(
-      "http://localhost:3000/api/service",
-      {
-        method: "POST",
-        body: JSON.stringify(bookingData),
-      }
-    );
-    await res.json();
+    const res = await fetch("http://localhost:3000/api/service", {
+      method: "POST",
+      body: JSON.stringify(bookingData),
+    });
+    // console.log(res);
+    if (res.ok) {
+      toast.success("Successfully booked", {
+        position: "top-center",
+      });
+      form.reset();
+    } else {
+      toast.error("Something went wrong!");
+    }
   };
 
   return (

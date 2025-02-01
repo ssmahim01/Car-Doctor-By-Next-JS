@@ -1,7 +1,8 @@
 import { MongoClient, ServerApiVersion } from 'mongodb';
 export const collectionNames = {
     serviceCollection: "services",
-    userCollection: "users_data"
+    userCollection: "users_data",
+    bookingCollection: "bookings"
 }
 
 export default function mongoDB(collection_name) {
