@@ -6,7 +6,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 
 export default function Navbar() {
   const {data: session, status} = useSession();
-  console.log(session);
+  console.log(session?.user?.email);
   const appointment = (
     <>
       <button className="btn btn-outline border border-[#FF3811] text-[#FF3811] hover:bg-[#FF3811] hover:text-white hover:border-none text-base w-full font-bold rounded-md">
@@ -27,10 +27,10 @@ export default function Navbar() {
         <Link href="/services">Services</Link>
       </li>
       <li>
-        <Link href="/blog">Blog</Link>
+        <Link href={`${status === "authenticated" ? "/my-bookings" : "/login"}`}>My Bookings</Link>
       </li>
       <li>
-        <Link href="/contact">Contact</Link>
+        <Link href="/blog">Blog</Link>
       </li>
     </>
   );
