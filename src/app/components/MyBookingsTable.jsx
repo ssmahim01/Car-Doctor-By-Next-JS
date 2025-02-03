@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 export default function MyBookingsTable({ bookings }) {
   const router = useRouter();
   const handleDeleteBooking = async (id) => {
-    const response = await fetch(`http://localhost:3000/api/service/${id}`, {
+    const response = await fetch(`https://car-doctor-by-next-js.vercel.app/api/service/${id}`, {
       method: "DELETE",
     });
     const data = await response.json();

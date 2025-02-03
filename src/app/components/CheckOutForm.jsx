@@ -29,7 +29,7 @@ export default function CheckOutForm({ service }) {
       service_price: service.price,
     };
 
-    const res = await fetch("http://localhost:3000/api/service", {
+    const res = await fetch("https://car-doctor-by-next-js.vercel.app/api/service", {
       method: "POST",
       body: JSON.stringify(bookingData),
     });

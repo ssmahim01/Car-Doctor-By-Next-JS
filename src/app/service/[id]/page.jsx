@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default async function ServiceDetails({params}) {
     const {id} = await params;
-   const response = await fetch(`http://localhost:3000/api/service/${id}`);
+   const response = await fetch(`https://car-doctor-by-next-js.vercel.app/api/service/${id}`);
    const service = await response.json();
 
   return (
