@@ -1,6 +1,7 @@
 "use server"
 import mongoDB, { collectionNames } from "@/lib/mongoDB"
 import bcrypt from "bcrypt"
+import { revalidatePath } from "next/cache";
 
 export const registerUser = async (payload) => {
     // console.log(payload);
@@ -15,6 +16,7 @@ export const registerUser = async (payload) => {
         payload.password = hashedPassword;
         const postResult = await userCollection.insertOne(payload);
         postResult.insertedId = postResult.insertedId.toString();
+        revalidatePath("/login");
         return postResult;
     }
 

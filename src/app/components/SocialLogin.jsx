@@ -17,9 +17,9 @@ export default function SocialLogin() {
   useEffect(() => {
     if (session?.status === "authenticated") {
       router.push("/");
-      toast.success("Login successful", {
-        position: "top-center",
-      });
+      // toast.success("Login successful", {
+      //   position: "top-center",
+      // });
     }
   }, [session?.status]);
 

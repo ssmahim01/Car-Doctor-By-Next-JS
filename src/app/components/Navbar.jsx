@@ -9,9 +9,11 @@ export default function Navbar() {
   console.log(session?.user?.email);
   const appointment = (
     <>
+      <Link href={"/my-bookings"}>
       <button className="btn btn-outline border border-[#FF3811] text-[#FF3811] hover:bg-[#FF3811] hover:text-white hover:border-none text-base w-full font-bold rounded-md">
         Appointment
       </button>
+      </Link>
     </>
   );
 
@@ -27,7 +29,7 @@ export default function Navbar() {
         <Link href="/services">Services</Link>
       </li>
       <li>
-        <Link href={`${status === "authenticated" ? "/my-bookings" : "/login"}`}>My Bookings</Link>
+        <Link href="/my-bookings">My Bookings</Link>
       </li>
       <li>
         <Link href="/blog">Blog</Link>
@@ -35,7 +37,7 @@ export default function Navbar() {
     </>
   );
   return (
-    <div className="navbar bg-base-100 bg-opacity-80 lg:px-16 md:px-10 px-5 fixed z-10 border-b border-gray-300 shadow-md">
+    <div className="navbar bg-base-100 bg-opacity-80 lg:px-16 md:px-10 px-5 fixed z-10 border-b border-gray-200 shadow-sm">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

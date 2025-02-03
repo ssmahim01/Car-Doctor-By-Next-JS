@@ -2,8 +2,10 @@
 import Link from "next/link";
 import { registerUser } from "../actions/auth/registerUser";
 import SocialLogin from "./SocialLogin";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
+  const router = useRouter();
     const handleRegister = async (e) => {
         e.preventDefault();
         const form = e.target;
@@ -11,7 +13,10 @@ export default function RegisterForm() {
         const email = form.email.value;
         const password = form.password.value;
 
-       await registerUser({name, email, password});
+      const res = await registerUser({name, email, password});
+       if(res.acknowledged){
+         router.push("/login");
+       }
     };
 
       return (
